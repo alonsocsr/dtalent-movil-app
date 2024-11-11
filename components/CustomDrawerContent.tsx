@@ -3,9 +3,13 @@ import { useRouter } from 'expo-router'
 import { Image, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useAuth } from '@/context/AuthContext';
+
 const CustomDrawerContent = (props: any) => {
   const router = useRouter();
   const { top, bottom } = useSafeAreaInsets();
+
+  const {user, signOut } = useAuth();
 
   return (
     <View className='flex flex-1 h-full'>
@@ -27,9 +31,19 @@ const CustomDrawerContent = (props: any) => {
         
       </DrawerContentScrollView>
       <View
-        
+        className='bg-black flex-col'
       >
-        <DrawerItem label={'Logout'} onPress={() => router.replace('/')} />
+        {user && (
+        <View >
+          <Text className='text-white'>{user.fullName}</Text>
+          <Text className='text-white' >{user.email}</Text>
+          <DrawerItem 
+            label="Cerrar Sesión" 
+            onPress={signOut} 
+            labelStyle={{ color: "#fff" }}
+          />
+        </View>
+      )}
       </View>
     </View>
   )

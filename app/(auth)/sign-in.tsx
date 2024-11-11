@@ -4,10 +4,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
 import CustomButton from "@/components/CustomButton";
 import FormField from "@/components/FormField";
-
+import { useAuth } from "@/context/AuthContext";
 
 const SignIn = () => {
-  const [isSubmitting, setSubmitting] = useState(false);
+  const { signIn, isLoading } = useAuth();
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -18,7 +18,13 @@ const SignIn = () => {
       Alert.alert("Error", "Please fill in all fields");
     }
 
-    setSubmitting(true);
+    try {
+      await signIn(form.username, form.password);
+      Alert.alert('Success', 'You are signed in!');
+      router.replace("/employees");
+    } catch (error) {
+      Alert.alert('Error', 'Failed to sign in');
+    }
   };
 
   return (
@@ -60,7 +66,7 @@ const SignIn = () => {
             title="Iniciar Sesión"
             handlePress={submit}
             containerStyles="mt-7"
-            isLoading={isSubmitting}
+            isLoading={isLoading}
           />
 
           <View className="flex justify-center pt-5 flex-row gap-2">
