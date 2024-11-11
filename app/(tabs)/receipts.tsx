@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, TextInput, FlatList, ActivityIndicator, S
 import { Surface } from 'react-native-paper';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { Receipt, ApiReceiptResponse } from '@/lib/types';
 
@@ -102,9 +103,27 @@ const ReceiptsPage = () => {
         <Text className='text-center' style={{ minWidth: 80 }}>{item.type}</Text>
         <Text className='text-center' style={{ minWidth: 80 }}>{item.employee}</Text>
         <Text className='text-center' style={{ minWidth: 100 }}>{item.fullDate}</Text>
-        <Text className='text-center text-green-600' style={{ minWidth: 80 }}>{item.isSended ? '✔️' : '✖️'}</Text>
-        <Text className='text-center text-green-600' style={{ minWidth: 80 }}>{item.isReaded ? '✔️' : '✖️'}</Text>
-        <Text className='text-center' style={{ minWidth: 80 }}>{item.isSigned ? '✔️' : '✖️'}</Text>
+        <View style={{ minWidth: 80, alignItems: 'center' }}>
+          {item.isSended ? (
+            <MaterialIcons name="done" size={20} color="green" />
+          ) : (
+            <MaterialIcons name="close" size={20} color="red" />
+          )}
+        </View>
+        <View style={{ minWidth: 80, alignItems: 'center' }}>
+          {item.isReaded ? (
+            <MaterialIcons name="done" size={20} color="green" />
+          ) : (
+            <MaterialIcons name="close" size={20} color="red" />
+          )}
+        </View>
+        <View style={{ minWidth: 80, alignItems: 'center' }}>
+          {item.isSigned ? (
+            <MaterialIcons name="done" size={20} color="green" />
+          ) : (
+            <MaterialIcons name="close" size={20} color="red" />
+          )}
+        </View>
       </View>
     </ScrollView>
   );
@@ -126,10 +145,11 @@ const ReceiptsPage = () => {
         
         {/* Refresh Button */}
         <TouchableOpacity 
-          className='bg-blue-500 p-4 rounded-lg mb-4'
+          className='flex-row bg-blue-500 p-4 rounded-lg mr-4 mb-4'
           onPress={fetchReceipts}
         >
-          <Text className='text-white max-w-xs font-semibold'>REFRESCAR LISTA DE RECIBOS</Text>
+          <MaterialIcons name="refresh" size={20} color="white" />
+          <Text className='text-white max-w-xs ml-2 font-semibold'>REFRESCAR LISTA DE RECIBOS</Text>
         </TouchableOpacity>
       </Surface>
 
@@ -237,11 +257,11 @@ const ReceiptsPage = () => {
         {/* Pagination */}
         <View className='flex-row justify-center items-center mt-4'>
           <TouchableOpacity onPress={goToPreviousPage} disabled={page === 1} className='p-2'>
-            <Text>◀</Text>
+            <MaterialIcons name="navigate-before" size={24} color={page === 1 ? 'gray' : 'black'} />
           </TouchableOpacity>
-          <Text className='mx.4'>{page}</Text>
+          <Text className='mx-4'>{page}</Text>
           <TouchableOpacity onPress={goToNextPage} disabled={page === numPages} className='p-2'>
-            <Text>▶</Text>
+            <MaterialIcons name="navigate-next" size={24} color={page === numPages ? 'gray' : 'black'} />
           </TouchableOpacity>
         </View>
 
