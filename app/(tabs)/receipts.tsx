@@ -97,9 +97,9 @@ const ReceiptsPage = () => {
   };
   
   // Render each receipt row
-  const renderReceipt = ({ item }: { item: Receipt }) => (
-    <ScrollView horizontal style={{ height: 60 }} contentContainerStyle={{ alignItems: 'center' }}>
-      <View className='flex-row items-center bg-white p-3 rounded-lg mb-3'>
+  const renderReceipt = (item: Receipt) => (
+    
+      <View key={item.id} className='flex-row items-center bg-white p-3'>
         <Text className='text-center' style={{ minWidth: 80 }}>{item.type}</Text>
         <Text className='text-center' style={{ minWidth: 80 }}>{item.employee}</Text>
         <Text className='text-center' style={{ minWidth: 100 }}>{item.fullDate}</Text>
@@ -125,7 +125,6 @@ const ReceiptsPage = () => {
           )}
         </View>
       </View>
-    </ScrollView>
   );
 
   return (
@@ -226,32 +225,27 @@ const ReceiptsPage = () => {
           </View>
         </Modal>
 
-        {/* Receipt List Header */}
-        <ScrollView 
-          horizontal
-          style={{ height: 50, maxHeight:50 }} 
-          contentContainerStyle={{ alignItems: 'center' }}
-          className='bg-blue-500 p-3 rounded-t-lg'
-        >
-          <Text className='flex-1 text-white text-center' style={{ minWidth: 80 }}>Tipo</Text>
-          <Text className='flex-1 text-white text-center' style={{ minWidth: 80 }}>Empleado</Text>
-          <Text className='flex-1 text-white text-center' style={{ minWidth: 80 }}>Fecha</Text>
-          <Text className='flex-1 text-white text-center' style={{ minWidth: 80 }}>Enviado</Text>
-          <Text className='flex-1 text-white text-center' style={{ minWidth: 80 }}>Leído</Text>
-          <Text className='flex-1 text-white text-center' style={{ minWidth: 80 }}>Firmado</Text>
-        </ScrollView>
-
         {/* Receipt List */}
         {loading ? (
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
-          <FlatList
-            data={receipts}
-            renderItem={renderReceipt}
-            keyExtractor={(item) => item.id.toString()}
-            contentContainerStyle={{ backgroundColor: "#fff" }}
-            className='rounded-b-lg'
-          />
+          <ScrollView 
+              horizontal
+              contentContainerStyle={{ flexDirection: 'column' }}
+            >
+              <View
+                className='bg-blue-500 p-3 rounded-t-lg flex-row' 
+                style={{ height: 50, maxHeight:50 }}
+              >
+                <Text className='flex-1 text-white text-center' style={{ minWidth: 80 }}>Tipo</Text>
+                <Text className='flex-1 text-white text-center' style={{ minWidth: 80 }}>Empleado</Text>
+                <Text className='flex-1 text-white text-center' style={{ minWidth: 80 }}>Fecha</Text>
+                <Text className='flex-1 text-white text-center' style={{ minWidth: 80 }}>Enviado</Text>
+                <Text className='flex-1 text-white text-center' style={{ minWidth: 80 }}>Leído</Text>
+                <Text className='flex-1 text-white text-center' style={{ minWidth: 80 }}>Firmado</Text>
+              </View>
+              {receipts.map(renderReceipt)}
+          </ScrollView>
         )}
 
         {/* Pagination */}

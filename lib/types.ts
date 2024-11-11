@@ -1,6 +1,7 @@
 export interface User {
   id: number;
   initials: string;
+  isActive: boolean;
   lastLogin: Date;
   isSuperuser: boolean;
   username: string;
@@ -48,4 +49,15 @@ export interface ApiReceiptResponse {
   count: number;
   fullFilterIds: number[];
   results: Receipt[];
+}
+
+export interface ApiEmployeesResponse {
+  numPages: number;
+  totalCount: number;
+  perPage: number;
+  next: string | null;
+  previous: string | null;
+  count: number;
+  fullFilterIds: number[];
+  results: User[];
 }

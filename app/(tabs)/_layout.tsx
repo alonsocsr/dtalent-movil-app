@@ -24,7 +24,7 @@ const TabsLayout = () => {
             name='employees' 
             options={{ 
               drawerLabel: "Empleados",
-              headerTitle: 'Empleados',
+              headerTitle: '',
               drawerIcon: ({ size, color }) => (
                 <Ionicons name='people-sharp' size={size} color={color} />
               ),
