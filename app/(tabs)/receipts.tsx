@@ -30,7 +30,7 @@ const ReceiptsPage = () => {
         page: page.toString(),
         sort: sortOrder,
         search: searchQuery,
-        month: filters.year ? filters.year.toString() : '',
+        year: filters.year ? filters.year.toString() : '',
         isSended: filters.isSended !== null ? filters.isSended.toString() : '',
         isReaded: filters.isReaded !== null ? filters.isReaded.toString() : '',
         isSigned: filters.isSigned !== null ? filters.isSigned.toString() : '',
